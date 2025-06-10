@@ -58,19 +58,28 @@ function evaluateExpression() {
 buttons.forEach((btn) => {
   btn.addEventListener("click", () => {
     const val = btn.value;
+    const btnId = btn.id;
+
+    // Clear All
+    if (btnId === "clear-all-btn") {
+      currentInput = "";
+      result = "";
+      updateInputDisplay();
+      updateOutputDisplay();
+      return;
+    }
+
+    // Clear Last Entry
+    if (btnId === "clear-btn") {
+      currentInput = currentInput.slice(0, -1);
+      updateInputDisplay();
+      return;
+    }
 
     if (!val) return;
 
     if (val === "=") {
       evaluateExpression();
-    } else if (btn.id === "clear-all-btn") {
-      currentInput = "";
-      result = "";
-      updateInputDisplay();
-      updateOutputDisplay();
-    } else if (btn.id === "clear-btn") {
-      currentInput = currentInput.slice(0, -1);
-      updateInputDisplay();
     } else {
       if (currentInput === "" && result && "+-*/^".includes(val)) {
         currentInput = result.toString();
