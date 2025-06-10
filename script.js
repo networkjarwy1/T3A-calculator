@@ -75,7 +75,14 @@ buttons.forEach((btn) => {
       if (currentInput === "" && result && "+-*/^".includes(val)) {
         currentInput = result.toString();
       }
-      currentInput += val;
+
+      const lastChar = currentInput.slice(-1);
+      if ("+-*/^".includes(val) && "+-*/^".includes(lastChar)) {
+        currentInput = currentInput.slice(0, -1) + val; // Replace last operator
+      } else {
+        currentInput += val;
+      }
+
       updateInputDisplay();
     }
   });
@@ -95,7 +102,14 @@ document.addEventListener("keydown", (e) => {
     if (currentInput === "" && result && "+-*/^".includes(key)) {
       currentInput = result.toString();
     }
-    currentInput += key;
+
+    const lastChar = currentInput.slice(-1);
+    if ("+-*/^".includes(key) && "+-*/^".includes(lastChar)) {
+      currentInput = currentInput.slice(0, -1) + key;
+    } else {
+      currentInput += key;
+    }
+
     updateInputDisplay();
   } else if (key === "Enter") {
     e.preventDefault();
